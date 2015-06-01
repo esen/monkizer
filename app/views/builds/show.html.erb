@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @build.project_id %>
+</p>
+
+<p>
+  <strong>Ci build number:</strong>
+  <%= @build.ci_build_number %>
+</p>
+
+<%= link_to 'Edit', edit_build_path(@build) %> |
+<%= link_to 'Back', builds_path %>
