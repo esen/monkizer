@@ -1,0 +1,33 @@
+<%= form_for(@build_result) do |f| %>
+  <% if @build_result.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@build_result.errors.count, "error") %> prohibited this build_result from being saved:</h2>
+
+      <ul>
+      <% @build_result.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :build_id %><br>
+    <%= f.number_field :build_id %>
+  </div>
+  <div class="field">
+    <%= f.label :device_id %><br>
+    <%= f.number_field :device_id %>
+  </div>
+  <div class="field">
+    <%= f.label :passed %><br>
+    <%= f.check_box :passed %>
+  </div>
+  <div class="field">
+    <%= f.label :log_file %><br>
+    <%= f.text_field :log_file %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

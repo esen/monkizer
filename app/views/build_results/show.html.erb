@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Build:</strong>
+  <%= @build_result.build_id %>
+</p>
+
+<p>
+  <strong>Device:</strong>
+  <%= @build_result.device_id %>
+</p>
+
+<p>
+  <strong>Passed:</strong>
+  <%= @build_result.passed %>
+</p>
+
+<p>
+  <strong>Log file:</strong>
+  <%= @build_result.log_file %>
+</p>
+
+<%= link_to 'Edit', edit_build_result_path(@build_result) %> |
+<%= link_to 'Back', build_results_path %>

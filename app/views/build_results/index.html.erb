@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Build Results</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Build</th>
+      <th>Device</th>
+      <th>Passed</th>
+      <th>Log file</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @build_results.each do |build_result| %>
+      <tr>
+        <td><%= build_result.build_id %></td>
+        <td><%= build_result.device_id %></td>
+        <td><%= build_result.passed %></td>
+        <td><%= build_result.log_file %></td>
+        <td><%= link_to 'Show', build_result %></td>
+        <td><%= link_to 'Edit', edit_build_result_path(build_result) %></td>
+        <td><%= link_to 'Destroy', build_result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Build result', new_build_result_path %>

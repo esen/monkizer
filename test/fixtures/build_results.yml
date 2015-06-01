@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  build_id: 1
+  device_id: 1
+  passed: false
+  log_file: MyString
+
+two:
+  build_id: 1
+  device_id: 1
+  passed: false
+  log_file: MyString
