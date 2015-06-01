@@ -7,8 +7,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div>
+  <%= render partial: "common/menu" %>
+</div>
+<div>
+  <%= render partial: "common/device" %>
+</div>
 
-<%= yield %>
+<div>
+  <%= yield %>
+</div>
 
 </body>
 </html>

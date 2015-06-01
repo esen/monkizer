@@ -1,5 +1,8 @@
+require 'fileutils'
+
 class DevicesController < ApplicationController
   before_action :set_device, only: [:show, :edit, :update, :destroy]
+  before_action :set_project
 
   # GET /devices
   # GET /devices.json
@@ -15,20 +18,26 @@ class DevicesController < ApplicationController
   # GET /devices/new
   def new
     @device = Device.new
+    @yaml_file = ""
   end
 
   # GET /devices/1/edit
   def edit
+    @yaml_file = File.read(Rails.root.to_s + "/config/device_configs/device_#{@device.id}.json")
   end
 
   # POST /devices
   # POST /devices.json
   def create
     @device = Device.new(device_params)
+    @device.project = @project
 
     respond_to do |format|
       if @device.save
-        format.html { redirect_to @device, notice: 'Device was successfully created.' }
+        File.open(Rails.root.to_s + "/config/device_configs/device_#{@device.id}.json","w") do |f|
+          f.write(params[:configs])
+        end 
+        format.html { redirect_to [@project, @device], notice: 'Device was successfully created.' }
         format.json { render :show, status: :created, location: @device }
       else
         format.html { render :new }
@@ -42,7 +51,10 @@ class DevicesController < ApplicationController
   def update
     respond_to do |format|
       if @device.update(device_params)
-        format.html { redirect_to @device, notice: 'Device was successfully updated.' }
+        File.open(Rails.root.to_s + "/config/device_configs/device_#{@device.id}.json","w") do |f|
+          f.write(params[:configs])
+        end 
+        format.html { redirect_to [@project, @device], notice: 'Device was successfully updated.' }
         format.json { render :show, status: :ok, location: @device }
       else
         format.html { render :edit }
@@ -55,8 +67,12 @@ class DevicesController < ApplicationController
   # DELETE /devices/1.json
   def destroy
     @device.destroy
+    if File.exist?(Rails.root.to_s + "/config/device_configs/device_#{@device.id}.json")
+      File.delete(Rails.root.to_s + "/config/device_configs/device_#{@device.id}.json") 
+    end
+
     respond_to do |format|
-      format.html { redirect_to devices_url, notice: 'Device was successfully destroyed.' }
+      format.html { redirect_to [@project, :devices], notice: 'Device was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -70,5 +86,9 @@ class DevicesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
       params.require(:device).permit(:model, :version, :adb_device_id, :project_id)
+    end
+
+    def set_project
+      @project = Project.find(params[:project_id])
     end
 end

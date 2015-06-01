@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   root to: "projects#index"
 
   resources :projects do 
-    resources :builds do
-      resources :build_results
+    resources :builds, only: [:index, :show, :delete] do
+      resources :build_results, only: [:index, :show]
     end
+    get 'build_now', on: :member
     resources :devices
   end
   # The priority is based upon order of creation: first created -> highest priority.

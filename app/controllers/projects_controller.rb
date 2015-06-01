@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :build_now]
 
   # GET /projects
   # GET /projects.json
@@ -59,6 +59,11 @@ class ProjectsController < ApplicationController
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def build_now
+    build = @project.builds.create
+    redirect_to [@project, build]
   end
 
   private
