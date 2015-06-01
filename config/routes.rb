@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :projects
+  root to: "projects#index"
+
+  resources :projects do 
+    resources :devices
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  model: MyString
+  version: MyString
+  adb_device_id: MyString
+  project_id: 1
+
+two:
+  model: MyString
+  version: MyString
+  adb_device_id: MyString
+  project_id: 1
