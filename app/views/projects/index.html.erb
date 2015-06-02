@@ -7,7 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Location</th>
-      <th colspan="6"></th>
+      <th colspan="7"></th>
     </tr>
   </thead>
 
@@ -17,6 +17,7 @@
         <td><%= project.name %></td>
         <td><%= project.location %></td>
         <td><%= link_to "Build Now", build_now_project_path(project), class: "pure-button" %></td>
+        <td><%= link_to "Test Build Now", build_now_project_path(project) + "?test_build=true", class: "pure-button" %></td>
         <td><%= link_to "Devices", project_devices_path(project), class: "pure-button" %></td>
         <td><%= link_to "Builds", project_builds_path(project), class: "pure-button" %></td>
         <td><%= link_to 'Show', project, class: "pure-button" %></td>

@@ -62,7 +62,8 @@ class ProjectsController < ApplicationController
   end
 
   def build_now
-    build = @project.builds.create
+    build = @project.builds.create :status => "In progress"
+    RunTests.perform_async(build.id, params[:test_build] == "true")
     redirect_to [@project, build]
   end
 
@@ -74,6 +75,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :location)
+      params.require(:project).permit(:name, :location, :ruby_version, :ruby_gemset, :build_variant, :git_repo, :git_branch)
     end
 end

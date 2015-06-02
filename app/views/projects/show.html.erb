@@ -10,5 +10,30 @@
   <%= @project.location %>
 </p>
 
+<p>
+  <strong>Ruby Version:</strong>
+  <%= @project.ruby_version %>
+</p>
+
+<p>
+  <strong>Ruby Gemset:</strong>
+  <%= @project.ruby_gemset %>
+</p>
+
+<p>
+  <strong>Build Variant:</strong>
+  <%= @project.build_variant %>
+</p>
+
+<p>
+  <strong>Git Repository:</strong>
+  <%= @project.git_repo %>
+</p>
+
+<p>
+  <strong>Git Branch:</strong>
+  <%= @project.git_branch %>
+</p>
+
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

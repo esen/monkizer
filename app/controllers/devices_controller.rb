@@ -18,12 +18,12 @@ class DevicesController < ApplicationController
   # GET /devices/new
   def new
     @device = Device.new
-    @yaml_file = ""
+    @json_file = ""
   end
 
   # GET /devices/1/edit
   def edit
-    @yaml_file = File.read(Rails.root.to_s + "/config/device_configs/device_#{@device.id}.json")
+    @json_file = File.read(Rails.root.to_s + "/config/device_configs/device_#{@device.id}.json")
   end
 
   # POST /devices

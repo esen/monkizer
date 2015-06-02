@@ -13,11 +13,31 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, size: "80" %>
   </div>
   <div class="field">
     <%= f.label :location %><br>
-    <%= f.text_field :location %>
+    <%= f.text_field :location, size: "80" %>
+  </div>
+  <div class="field">
+    <%= f.label :ruby_version %><br>
+    <%= f.text_field :ruby_version, size: "80" %>
+  </div>
+  <div class="field">
+    <%= f.label :ruby_gemset %><br>
+    <%= f.text_field :ruby_gemset, size: "80" %>
+  </div>
+  <div class="field">
+    <%= f.label :build_variant %><br>
+    <%= f.text_field :build_variant, size: "80" %>
+  </div>
+  <div class="field">
+    <%= f.label :git_repo %><br>
+    <%= f.text_field :git_repo, size: "80" %>
+  </div>
+  <div class="field">
+    <%= f.label :git_branch %><br>
+    <%= f.text_field :git_branch, size: "80" %>
   </div>
   <div class="actions">
     <%= f.submit %>
