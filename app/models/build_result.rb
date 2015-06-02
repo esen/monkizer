@@ -6,6 +6,9 @@ class BuildResult < ActiveRecord::Base
 
   before_destroy :remove_log_file
 
+  scope :passed, -> { where(passed: true) }
+  scope :not_passed, -> { where(passed: false) }
+
   def passed!
     self.passed = true
     self.save
@@ -14,6 +17,6 @@ class BuildResult < ActiveRecord::Base
   private
 
   def remove_log_file
-    FileUtils.rm self.log_file
+    FileUtils.rm self.log_file rescue nil
   end
 end

@@ -7,4 +7,13 @@ class Build < ActiveRecord::Base
     self.status = "Failed"
     self.save
   end
+
+  def all_passed?
+    self.build_results.not_passed.count == 0
+  end
+
+  def passed!
+    self.status = "Finished"
+    self.save
+  end
 end

@@ -35,5 +35,27 @@
   <%= @project.git_branch %>
 </p>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<p>
+  <strong>Number of Builds:</strong>
+  <%= @project.builds.count %>
+</p>
+
+<p>
+  <strong>Last Build:</strong>
+  <%= b = @project.builds.last; link_to b.id, [@project, b] if b %>
+</p>
+
+<p>
+  <strong>Last CI Build:</strong>
+  <%= b = @project.last_ci_build; link_to b.ci_build_number + " (#{b.id})", [@project, b] if b %>
+</p>
+
+
+
+
+<%= link_to 'Build Now', build_now_project_path(@project), class: "pure-button"  %>
+<%= link_to 'Test Build Now', build_now_project_path(@project) + "?test_build=true", class: "pure-button" %>
+<%= link_to "Devices", project_devices_path(@project), class: "pure-button" %>
+<%= link_to "Builds", project_builds_path(@project), class: "pure-button" %>
+<%= link_to 'Edit', edit_project_path(@project), class: "pure-button" %>
+<%= link_to 'Destroy', @project, method: :delete, data: { confirm: 'Are you sure?' }, class: "pure-button" %>

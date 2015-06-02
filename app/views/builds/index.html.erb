@@ -18,7 +18,7 @@
       <tr>
         <td><%= build.project_id %></td>
         <td><%= build.ci_build_number %></td>
-        <td><%= build.status %></td>
+        <td><%= build.status + " #{build.build_results.count}|#{build.build_results.passed.count}" %></td>
         <td><%= build.error %></td>
         <td><%= link_to 'Show', [@project, build] %></td>
         <td><%= link_to 'Destroy', [@project, build], method: :delete, data: { confirm: 'Are you sure?' } %></td>

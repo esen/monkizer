@@ -19,10 +19,10 @@ ActiveRecord::Schema.define(version: 20150602122332) do
   create_table "build_results", force: :cascade do |t|
     t.integer  "build_id"
     t.integer  "device_id"
-    t.boolean  "passed"
+    t.boolean  "passed",     default: false
     t.string   "log_file"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "builds", force: :cascade do |t|

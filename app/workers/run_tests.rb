@@ -45,7 +45,9 @@ class RunTests
           `#{rvm_vars} #{calabash} run #{apk_file}#{only_test_feature} > #{build_result.log_file}`
           
           build_result.passed! if $?.success? 
-        end    
+        end
+
+        build.passed! if build.all_passed?
       end
     end
   end

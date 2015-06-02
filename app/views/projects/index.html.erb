@@ -7,7 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Location</th>
-      <th colspan="7"></th>
+      <th colspan="6"></th>
     </tr>
   </thead>
 
@@ -22,7 +22,6 @@
         <td><%= link_to "Builds", project_builds_path(project), class: "pure-button" %></td>
         <td><%= link_to 'Show', project, class: "pure-button" %></td>
         <td><%= link_to 'Edit', edit_project_path(project), class: "pure-button" %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: "pure-button" %></td>
       </tr>
     <% end %>
   </tbody>
