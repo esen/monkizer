@@ -42,7 +42,7 @@ class RunTests
 
           logger.info "Running tests. BuildResult id: #{build_result.id}"
           only_test_feature = test_build ? " features/groups_create.feature --tags @doing" : ""
-          `#{rvm_vars} #{calabash} run #{apk_file}#{only_test_feature} > #{build_result.log_file}`
+          `#{rvm_vars} ADB_DEVICE_ARG="#{device.adb_device_id}" #{calabash} run #{apk_file}#{only_test_feature} > #{build_result.log_file}`
           
           build_result.passed! if $?.success? 
         end

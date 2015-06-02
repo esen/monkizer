@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get 'build_now', on: :member
     resources :devices
   end
+
+  get 'common/get_adb_ids'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

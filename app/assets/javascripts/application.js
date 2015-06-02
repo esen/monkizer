@@ -14,3 +14,12 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+
+$(function() {
+  $("#get_devices").on("click", function() {
+    $.get("/common/get_adb_ids", function(xhr, status){
+      alert(xhr["devices"])
+    })
+  })
+});
