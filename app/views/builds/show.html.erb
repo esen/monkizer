@@ -2,11 +2,32 @@
 
 <p>
   <strong>Project:</strong>
-  <%= @build.project_id %>
+  <%= @build.project.name %>
 </p>
 
 <p>
   <strong>Ci build number:</strong>
   <%= @build.ci_build_number %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @build.status %>
+</p>
+
+<p>
+  <strong>Number of devices:</strong>
+  <%= @build.project.devices.count %>
+</p>
+
+
+<p>
+  <strong>Builds Passed:</strong>
+  <%= link_to @build.build_results.passed.count, project_build_build_results_path(@project, @build, :filter => "passed") %>
+</p>
+
+<p>
+  <strong>Builds Failed:</strong>
+  <%= link_to @build.build_results.not_passed.count, project_build_build_results_path(@project, @build, :filter => "not_passed") %>
 </p>
 

@@ -1,17 +1,18 @@
 class BuildResultsController < ApplicationController
-  before_action :set_build_result, only: [:show, :edit, :update, :destroy]
+  before_action :set_build_result, only: [:show]
   before_action :set_project
   before_action :set_build
 
   # GET /build_results
   # GET /build_results.json
   def index
-    @build_results = BuildResult.all
+    @build_results = BuildResult.of_build(@build)
   end
 
   # GET /build_results/1
   # GET /build_results/1.json
   def show
+    @logs = File.read(@build_result.log_file)
   end
 
 

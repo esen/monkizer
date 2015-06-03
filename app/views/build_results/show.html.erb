@@ -2,20 +2,22 @@
 
 <p>
   <strong>Build:</strong>
-  <%= @build_result.build_id %>
+  <%= link_to "##{@build.id}", project_build_build_results_path(@project, @build) %>
 </p>
 
 <p>
   <strong>Device:</strong>
-  <%= @build_result.device_id %>
+  <%= @build_result.device.model %>
 </p>
 
 <p>
-  <strong>Passed:</strong>
-  <%= @build_result.passed %>
+  <strong>Status:</strong>
+  <%= @build_result.passed ? "Passed" : "FAILED" %>
 </p>
 
 <p>
-  <strong>Log file:</strong>
-  <%= @build_result.log_file %>
+  <strong>Logs:</strong>
+  <div style="background-color: #f2f2f2; padding: 5px;">
+      <%= simple_format(@logs) %>
+  </div>
 </p>

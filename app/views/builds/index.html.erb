@@ -5,7 +5,7 @@
 <table class="pure-table">
   <thead>
     <tr>
-      <th>Project</th>
+      <th>Build Number</th>
       <th>Ci build number</th>
       <th>Status</th>
       <th>Error</th>
@@ -16,11 +16,11 @@
   <tbody>
     <% @builds.each do |build| %>
       <tr>
-        <td><%= build.project_id %></td>
+        <td>#<%= build.id %></td>
         <td><%= build.ci_build_number %></td>
         <td><%= build.status + " #{build.build_results.count}|#{build.build_results.passed.count}" %></td>
         <td><%= build.error %></td>
-        <td><%= link_to 'Show', [@project, build] %></td>
+        <td><%= link_to "View Results", project_build_build_results_path(@project, build) %></td>
         <td><%= link_to 'Destroy', [@project, build], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

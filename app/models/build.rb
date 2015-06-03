@@ -2,6 +2,8 @@ class Build < ActiveRecord::Base
   belongs_to :project
   has_many :build_results, :dependent => :destroy
 
+  scope :of_project, ->(project) { where(project: project) }
+
   def set_error(error)
     self.error = error
     self.status = "Failed"

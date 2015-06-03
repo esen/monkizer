@@ -8,6 +8,7 @@ class BuildResult < ActiveRecord::Base
 
   scope :passed, -> { where(passed: true) }
   scope :not_passed, -> { where(passed: false) }
+  scope :of_build, ->(build) { where(build: build) }
 
   def passed!
     self.passed = true

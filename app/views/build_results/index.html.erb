@@ -7,7 +7,7 @@
     <tr>
       <th>Build</th>
       <th>Device</th>
-      <th>Passed</th>
+      <th>Status</th>
       <th>Log file</th>
       <th colspan="1"></th>
     </tr>
@@ -17,8 +17,8 @@
     <% @build_results.each do |build_result| %>
       <tr>
         <td><%= build_result.build_id %></td>
-        <td><%= build_result.device_id %></td>
-        <td><%= build_result.passed %></td>
+        <td><%= build_result.device.model %></td>
+        <td><%= build_result.passed ? "Passed" : "FAILED" %></td>
         <td><%= build_result.log_file %></td>
         <td><%= link_to 'Show', [@project, @build, build_result] %></td>
       </tr>
