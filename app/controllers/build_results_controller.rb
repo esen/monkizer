@@ -1,5 +1,5 @@
 class BuildResultsController < ApplicationController
-  before_action :set_build_result, only: [:show]
+  before_action :set_build_result, only: [:show, :destroy]
   before_action :set_project
   before_action :set_build
 
@@ -13,6 +13,28 @@ class BuildResultsController < ApplicationController
   # GET /build_results/1.json
   def show
     @logs = File.read(@build_result.log_file)
+  end
+
+  def destroy
+    counter = 0
+    killed = true
+
+    if @build_result.pid
+      begin
+        counter = counter + 1
+        puts counter
+        begin
+          Process.kill("TERM", @build_result.pid)
+        rescue Exception => e
+          puts e.message
+          killed = false if e.message != "No such process"
+        end
+        puts killed
+      end until killed || counter > 5
+    end
+
+    @build_result.destroy if killed
+    redirect_to [@project, @build, :build_results]
   end
 
 

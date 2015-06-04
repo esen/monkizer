@@ -16,7 +16,6 @@ class RunTests
 
     logger.info "Starting build of project #{project.name}"
 
-    logger.info "go to the project's directory"
     Bundler.with_clean_env do
       Dir.chdir project.location do
 
@@ -28,26 +27,36 @@ class RunTests
         end
 
         logger.info "Resign apk"
-        `#{rvm_vars} #{calabash} resign #{apk_file}`
+        system "#{rvm_vars} #{calabash} resign #{apk_file}"
         unless $?.success?
           build.set_error "Could not resign the app"
           return
         end
 
         project.devices.each do |device|
-          build_result = build.build_results.create device: device, passed: false, 
-            log_file: Rails.root.to_s + "/log/build_logs/device_#{device.id}_build_#{build.id}_br_#{}.log"
+          puts device.inspect
+          build_result = build.build_results.create device: device, passed: false
+          build_result.log_file = Rails.root.to_s + "/log/build_logs/#{build_result.id}_device_#{device.id}_build_#{build.id}.log"
+          build_result.save
 
           FileUtils.touch(build_result.log_file)
+          config_path = Rails.root.to_s + "/config/device_configs/device_#{device.id}.json"
 
           logger.info "Running tests. BuildResult id: #{build_result.id}"
-          only_test_feature = test_build ? " features/groups_create.feature --tags @doing" : ""
-          `#{rvm_vars} ADB_DEVICE_ARG="#{device.adb_device_id}" #{calabash} run #{apk_file}#{only_test_feature} > #{build_result.log_file}`
-          
-          build_result.passed! if $?.success? 
+          only_test_feature = test_build ? " features/groups_create.feature" : ""
+          cmd = "#{rvm_vars} STEPS=#{config_path} ADB_DEVICE_ARG=\"#{device.adb_device_id}\" #{calabash} run #{apk_file}#{only_test_feature} > #{build_result.log_file}"
+
+          pid = fork { exec(cmd) }
+          build_result.pid = pid
+          build_result.save
+          _, status = Process.waitpid2(pid)
+          build_result.pid = nil
+          build_result.save
+
+          build_result.passed! if status.success? 
         end
 
-        build.passed! if build.all_passed?
+        build.finish!
       end
     end
   end

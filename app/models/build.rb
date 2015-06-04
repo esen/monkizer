@@ -14,8 +14,8 @@ class Build < ActiveRecord::Base
     self.build_results.not_passed.count == 0
   end
 
-  def passed!
-    self.status = "Finished"
+  def finish!
+    self.status = self.all_passed? ? "Success" : "Tests Failed"
     self.save
   end
 end

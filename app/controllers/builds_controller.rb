@@ -5,7 +5,7 @@ class BuildsController < ApplicationController
   # GET /builds
   # GET /builds.json
   def index
-    @builds = Build.of_project(@project)
+    @builds = Build.of_project(@project).order(id: :desc)
   end
 
   # GET /builds/1

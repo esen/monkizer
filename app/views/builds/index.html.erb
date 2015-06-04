@@ -9,7 +9,7 @@
       <th>Ci build number</th>
       <th>Status</th>
       <th>Error</th>
-      <th colspan="2"></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -21,7 +21,6 @@
         <td><%= build.status + " #{build.build_results.count}|#{build.build_results.passed.count}" %></td>
         <td><%= build.error %></td>
         <td><%= link_to "View Results", project_build_build_results_path(@project, build) %></td>
-        <td><%= link_to 'Destroy', [@project, build], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
