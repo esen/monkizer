@@ -57,7 +57,7 @@ class RunTests
         begin
           contents = File.read(project.location + "/app/build.gradle")
           File.open(project.location + "/app/build.gradle", "w") do |file| 
-            file.puts contents.gsub(/192.168.33.10/, '192.168.0.118')
+            file.puts contents.gsub(/192.168.33.10/, project.vagrant_ip.strip)
           end
         rescue Exception => e
           build.set_error e.message
