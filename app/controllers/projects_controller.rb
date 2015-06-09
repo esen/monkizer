@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all.limit(100)
+    @projects = Project.all.order(id: :desc).limit(100)
   end
 
   # GET /projects/1
