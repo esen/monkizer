@@ -3,6 +3,7 @@ class Build < ActiveRecord::Base
   has_many :build_results, :dependent => :destroy
 
   scope :of_project, ->(project) { where(project: project) }
+  scope :in_queue, -> { where(status: "In Queue") }
 
   def set_error(error)
     self.error = error

@@ -62,8 +62,8 @@ class ProjectsController < ApplicationController
   end
 
   def build_now
-    build = @project.builds.create status: "In progress", ci_build_number: params["ci_build_number"]
-    RunTests.perform_async(build.id, params[:test_build] == "true")
+    @project.builds.create status: "In Queue", ci_build_number: params["ci_build_number"]
+    RunTests.perform_async(@project.id, params[:test_build] == "true")
     redirect_to [@project, :builds]
   end
 
