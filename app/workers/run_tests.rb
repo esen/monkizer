@@ -7,12 +7,15 @@ class RunTests
     project = Project.find project_id
     build = project.builds.in_queue.last
     last_processed_build = project.last_processed_build
-    return unless last_processed_build.updated_at < build.created_at
 
-    since_time = last_processed_build.nil? ? Time.new("2000") : last_processed_build.updated_at
+    # Skip tasks and run only last queued task
+    since_time = last_processed_build.nil? ? Time.new("2000") : last_processed_build.created_at
+    return if build.nil? || since_time > build.created_at
     project.builds.in_queue.where("created_at > ?", since_time).where.not(id: build.id).each do |sb|
       sb.update_attribute :status, "Skipped"
     end
+
+    build.update_attribute :status, "In Progress"
 
     rvm_vars = "GEM_HOME=$HOME/.rvm/gems/ruby-#{project.ruby_version}@#{project.ruby_gemset}" +
                " GEM_PATH=$HOME/.rvm/gems/ruby-#{project.ruby_version}@#{project.ruby_gemset}" + 
