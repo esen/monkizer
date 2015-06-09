@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604094214) do
+ActiveRecord::Schema.define(version: 20150609053023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150604094214) do
     t.string   "build_variant"
     t.string   "git_repo"
     t.string   "git_branch"
+    t.string   "vagrant_ip"
   end
 
 end

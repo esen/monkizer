@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :projects do 
     resources :builds, only: [:index, :show, :delete] do
-      resources :build_results, only: [:index, :show]
+      resources :build_results, only: [:index, :show, :destroy]
     end
     get 'build_now', on: :member
     resources :devices

@@ -19,6 +19,41 @@ class RunTests
     Bundler.with_clean_env do
       Dir.chdir project.location do
 
+        logger.info "checkout #{project.git_branch}"
+        system "git checkout #{project.git_branch}"
+        unless $?.success?
+          build.set_error "Could not checkout to #{project.git_branch}"
+          return
+        end
+
+        logger.info "clean git directory"
+        system "git reset --hard"
+        unless $?.success?
+          build.set_error "Could not clean git directory"
+          return
+        end
+
+
+        logger.info "pull from #{project.git_repo}"
+        system "git pull origin #{project.git_branch}"
+        unless $?.success?
+          build.set_error "Could not updated from #{project.git_repo}"
+          return
+        end
+
+
+        logger.info "set IP in project to #{project.vagrant_ip}"
+        begin
+          contents = File.read(project.location + "/app/build.gradle")
+          File.open(project.location + "/app/build.gradle", "w") do |file| 
+            file.puts contents.gsub(/192.168.33.10/, '192.168.0.118')
+          end
+        rescue Exception => e
+          build.set_error e.message
+          return
+        end
+
+
         logger.info "gradle assemble#{project.build_variant.capitalize}"
         system "gradle assemble#{project.build_variant.capitalize}"
         unless $?.success?
